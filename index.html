@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MES 互动式学习平台</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <h1 class="logo">MES 互动式学习平台</h1>
+      <p class="subtitle">Manufacturing Execution System — 制造执行系统交互式教程</p>
+    </div>
+  </header>
+
+  <nav class="tab-bar">
+    <button class="tab active" data-tab="knowledge">📖 知识学习</button>
+    <button class="tab" data-tab="simulation">⚡ 批次模拟</button>
+    <button class="tab" data-tab="functionmap">🗂 功能地图</button>
+    <button class="tab" data-tab="quiz">🎯 知识测验</button>
+  </nav>
+
+  <!-- ==================== 知识学习模块 ==================== -->
+  <main id="knowledge" class="panel active">
+    <div class="knowledge-layout">
+      <aside class="knowledge-sidebar">
+        <h3>知识模块</h3>
+        <ul class="module-list" id="moduleList"></ul>
+      </aside>
+      <section class="knowledge-content" id="knowledgeContent">
+        <div class="welcome-card">
+          <h2>欢迎来到 MES 学习平台</h2>
+          <p>请从左侧选择一个知识模块开始学习。本平台涵盖 MES 系统的核心概念，从基础概述到高级功能，帮助你系统性地理解制造执行系统。</p>
+          <div class="module-overview">
+            <div class="overview-item" data-module="0"><span class="icon">🏭</span><span>MES 概述</span></div>
+            <div class="overview-item" data-module="1"><span class="icon">📋</span><span>计划与工单</span></div>
+            <div class="overview-item" data-module="2"><span class="icon">📦</span><span>批次管理</span></div>
+            <div class="overview-item" data-module="3"><span class="icon">⚙️</span><span>设备管理</span></div>
+            <div class="overview-item" data-module="4"><span class="icon">✅</span><span>质量管理</span></div>
+            <div class="overview-item" data-module="5"><span class="icon">🚚</span><span>物流与库存</span></div>
+            <div class="overview-item" data-module="6"><span class="icon">🔬</span><span>高级功能</span></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ==================== 批次模拟模块 ==================== -->
+  <main id="simulation" class="panel">
+    <div class="sim-container">
+      <h2>Lot 生命周期模拟器</h2>
+      <p class="sim-desc">通过交互式操作，体验批次（Lot）从创建到出货的完整生命周期流转。点击操作按钮推动状态变迁。</p>
+
+      <div class="sim-body">
+        <div class="sim-left">
+          <div class="lot-info-card" id="lotInfoCard">
+            <h3>当前批次信息</h3>
+            <table class="lot-table">
+              <tr><td class="label">Lot ID</td><td id="lotId">LOT-2026-001</td></tr>
+              <tr><td class="label">产品</td><td id="lotProduct">WAFER-A1</td></tr>
+              <tr><td class="label">数量</td><td id="lotQty">25 片</td></tr>
+              <tr><td class="label">当前状态</td><td id="lotState" class="state-badge state-created">已创建</td></tr>
+              <tr><td class="label">当前工序</td><td id="lotStep">—</td></tr>
+              <tr><td class="label">优先级</td><td id="lotPriority">Normal</td></tr>
+            </table>
+          </div>
+
+          <div class="sim-actions" id="simActions">
+            <h3>可用操作</h3>
+            <div class="action-buttons" id="actionButtons"></div>
+          </div>
+        </div>
+
+        <div class="sim-right">
+          <div class="state-diagram">
+            <h3>状态流转图</h3>
+            <svg id="stateSvg" viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-log">
+        <h3>操作日志</h3>
+        <div class="log-entries" id="logEntries">
+          <div class="log-entry">
+            <span class="log-time">00:00:00</span>
+            <span class="log-msg">系统初始化 — Lot LOT-2026-001 已创建，等待排队入站</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-reset" id="btnReset">🔄 重置模拟</button>
+    </div>
+  </main>
+
+  <!-- ==================== 功能地图模块 ==================== -->
+  <main id="functionmap" class="panel">
+    <div class="fmap-container">
+      <h2>MES 功能地图</h2>
+      <p class="fmap-desc">涵盖 8 大分类、50+ 功能项的完整 MES 功能树。点击分类展开查看具体功能。</p>
+      <div class="fmap-toolbar">
+        <button class="btn-small" id="btnExpandAll">全部展开</button>
+        <button class="btn-small" id="btnCollapseAll">全部收起</button>
+      </div>
+      <div class="fmap-tree" id="fmapTree"></div>
+    </div>
+  </main>
+
+  <!-- ==================== 知识测验模块 ==================== -->
+  <main id="quiz" class="panel">
+    <div class="quiz-container">
+      <h2>MES 知识测验</h2>
+      <p class="quiz-desc">测试你对 MES 核心概念的理解。共 8 道选择题，覆盖 OCAP、Lot、PMS、Reticle 等关键主题。</p>
+
+      <div class="quiz-progress" id="quizProgress">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="progress-text" id="progressText">0 / 8</span>
+      </div>
+
+      <div class="quiz-body" id="quizBody"></div>
+
+      <div class="quiz-result hidden" id="quizResult">
+        <h3 id="resultTitle"></h3>
+        <p id="resultDesc"></p>
+        <button class="btn-primary" id="btnRetry">重新测验</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>MES 互动式学习平台 &copy; 2026 OpenScio &mdash; MIT License</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
