@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MES 互动学习平台</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Inline emoji icons to avoid external dependencies */
+    .nav-item .nav-icon,
+    .module-card .card-icon {
+      font-style: normal;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle hidden" id="mobileMenuToggle" aria-label="打开菜单">☰</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h1>🏭 MES 学习平台</h1>
+        <div class="subtitle">制造执行系统互动教程</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">主菜单</div>
+
+        <a class="nav-item active" data-page="home" href="#home">
+          <span class="nav-icon">🏠</span>
+          <span>首页</span>
+        </a>
+
+        <div class="nav-section-title">学习模块</div>
+
+        <a class="nav-item" data-page="knowledge" href="#knowledge">
+          <span class="nav-icon">📚</span>
+          <span>知识学习</span>
+        </a>
+
+        <a class="nav-item" data-page="quiz" href="#quiz">
+          <span class="nav-icon">✏️</span>
+          <span>知识测验</span>
+        </a>
+
+        <a class="nav-item" data-page="simulator" href="#simulator">
+          <span class="nav-icon">🔄</span>
+          <span>批次模拟器</span>
+        </a>
+
+        <a class="nav-item" data-page="feature-map" href="#feature-map">
+          <span class="nav-icon">🗺️</span>
+          <span>功能地图</span>
+        </a>
+      </nav>
+
+      <div style="padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; opacity: 0.5; text-align: center;">
+        MES Interactive Tutorial v1.0
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Page Header -->
+      <div class="page-header" id="pageHeader">
+        <h2 id="pageTitle">欢迎使用 MES 互动学习平台</h2>
+        <div class="page-desc" id="pageDesc">通过互动式学习，掌握制造执行系统的核心知识</div>
+      </div>
+
+      <!-- Page Body -->
+      <div class="page-body" id="pageBody">
+        <!-- Home Page Content (default) -->
+        <div class="page-content" id="page-home">
+          <!-- Hero Section -->
+          <div class="home-hero">
+            <h2>🏭 MES 制造执行系统</h2>
+            <p>互动式学习平台 — 通过知识学习、模拟操作和功能探索，全面掌握 MES 系统的核心概念与操作技能</p>
+          </div>
+
+          <!-- Module Cards -->
+          <div class="module-cards">
+            <!-- Card 1: Knowledge Learning -->
+            <div class="module-card" onclick="navigateTo('knowledge')">
+              <div class="card-badge">7 大模块</div>
+              <div class="card-icon">📚</div>
+              <h3>知识学习与测验</h3>
+              <p>系统化学习 MES 七大核心知识模块，包括概述、计划工单、批次管理、设备管理、质量管理、物流库存和高级功能。配套自适应测验系统，答错补强。</p>
+              <div class="card-stats">
+                <div class="stat">
+                  <strong>32</strong>
+                  知识点
+                </div>
+                <div class="stat">
+                  <strong>62</strong>
+                  测验题目
+                </div>
+                <div class="stat">
+                  <strong>7</strong>
+                  模块
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2: Lot Simulator -->
+            <div class="module-card" onclick="navigateTo('simulator')">
+              <div class="card-badge">互动模拟</div>
+              <div class="card-icon">🔄</div>
+              <h3>批次模拟器</h3>
+              <p>通过可视化状态机图，模拟 Lot（批次）从创建到出货的完整生命周期。支持 TrackIn/TrackOut、Hold/Release、Split/Merge 等 22 种操作，覆盖完整生产场景。</p>
+              <div class="card-stats">
+                <div class="stat">
+                  <strong>8</strong>
+                  状态节点
+                </div>
+                <div class="stat">
+                  <strong>22</strong>
+                  操作类型
+                </div>
+                <div class="stat">
+                  <strong>SVG</strong>
+                  状态图
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3: Feature Map -->
+            <div class="module-card" onclick="navigateTo('feature-map')">
+              <div class="card-badge">功能全览</div>
+              <div class="card-icon">🗺️</div>
+              <h3>功能地图</h3>
+              <p>以可展开的树形结构展示 MES 系统的完整功能清单，涵盖 8 大分类、129 个功能项。支持搜索过滤，快速定位目标功能。</p>
+              <div class="card-stats">
+                <div class="stat">
+                  <strong>8</strong>
+                  大分类
+                </div>
+                <div class="stat">
+                  <strong>129</strong>
+                  功能项
+                </div>
+                <div class="stat">
+                  <strong>🔍</strong>
+                  搜索
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Knowledge Page (loaded dynamically) -->
+        <div class="page-content hidden" id="page-knowledge"></div>
+
+        <!-- Quiz Page (loaded dynamically) -->
+        <div class="page-content hidden" id="page-quiz"></div>
+
+        <!-- Simulator Page (loaded dynamically) -->
+        <div class="page-content hidden" id="page-simulator"></div>
+
+        <!-- Feature Map Page (loaded dynamically) -->
+        <div class="page-content hidden" id="page-feature-map"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data/knowledge-data.js"></script>
+  <script src="data/quiz-data.js"></script>
+  <script src="data/lot-states.js"></script>
+  <script src="data/feature-tree.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/knowledge.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/lot-simulator.js"></script>
+  <script src="js/feature-map.js"></script>
+</body>
+</html>

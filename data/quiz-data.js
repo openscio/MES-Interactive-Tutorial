@@ -1,0 +1,113 @@
+/* MES Quiz Data */
+'use strict';
+function _q(q,o,a,e){return{question:q,options:o,answer:a,explanation:e};}
+function _c(id,name,p,r){return{conceptId:id,conceptName:name,primary:p,reinforcement:[r]};}
+var QUIZ_DATA={
+"overview":[
+_c("ov-1","MES核心作用",
+_q("MES系统的核心作用是什么？",["仅用于财务管理","连接企业计划层（ERP）与车间执行层","仅用于人力资源管理","仅用于客户关系管理"],1,"MES是连接企业计划层（ERP）与车间执行层的核心信息系统。"),
+_q("以下哪项不是MES的四大核心作用之一？",["连接计划与执行","提高生产效率","管理企业财务","提升透明度"],2,"MES四大核心作用：连接计划与执行、提高生产效率、保证产品质量、提升透明度。")),
+_c("ov-2","MES典型架构",
+_q("MES四层架构中，负责与PLC、传感器等硬件通信的是哪一层？",["展示层","应用层","数据采集层","集成层"],2,"数据采集层负责与PLC、传感器等硬件通信，常用协议包括OPC UA和SECS/GEM。"),
+_q("MES架构中，展示层的核心组件包括？",["PLC和传感器","调度引擎和质量引擎","Web UI和移动端","ESB和API Gateway"],2,"展示层核心组件是Web UI和移动端，使用HTTP/WebSocket协议。")),
+_c("ov-3","MES实施价值",
+_q("实施MES后，生产周期通常可以缩短多少？",["5-10%","20-40%","50-70%","80-100%"],1,"实施MES后，生产周期可缩短20-40%，WIP减少15-30%，设备利用率提升10-25%。"),
+_q("以下哪项是MES实施带来的价值？",["增加人工成本","延长交货周期","降低生产成本、缩短交货周期","减少系统透明度"],2,"MES实施可降低生产成本、缩短交货周期、增强竞争力。")),
+_c("ov-4","7大核心功能",
+_q("以下哪项不属于MES的七大核心功能？",["生产计划与调度","质量管理","客户关系管理","追溯与可追溯性"],2,"MES七大核心功能不包含客户关系管理，那属于CRM系统。"),
+_q("MES的七大核心功能通过什么方式紧密协作？",["人工传递信息","统一数据平台","独立运行互不关联","纸质文档传递"],1,"七大功能通过统一数据平台紧密协作，实现数据共享和流程联动。"))
+],
+"plan-wo":[
+_c("pw-1","计划(Plan)概述",
+_q("MES中的计划(Plan)有哪三大特点？",["简单性、固定性、粗略化","层次性、灵活性、精细化","随机性、固定性、模糊化","单一性、刚性、标准化"],1,"计划三大特点：层次性、灵活性、精细化。"),
+_q("MES中的计划由哪个系统生成？",["MES自行生成","ERP生成，MES接收并细化","SCADA生成","PLM生成"],1,"计划由ERP生成，MES接收并细化为车间执行任务。")),
+_c("pw-2","工单(Work Order)",
+_q("工单(Work Order)的三大特点是什么？",["抽象性、延迟性、匿名性","具体性、实时性、追溯性","模糊性、批量性、临时性","通用性、静态性、简单性"],1,"工单三大特点：具体性、实时性、追溯性。"),
+_q("工单中不包含以下哪项内容？",["产品信息","工艺要求","客户联系方式","资源清单"],2,"工单包含产品信息、任务分配、工艺要求、资源清单和状态。")),
+_c("pw-3","工单生命周期",
+_q("工单生命周期的正确顺序是？",["创建→执行→接收→完成→开始","接收→创建→开始→执行→完成","创建→接收→开始→执行→完成","开始→创建→接收→执行→完成"],2,"工单生命周期：创建→接收→开始→执行→完成。"),
+_q("工单生命周期中，'执行'阶段对应的操作是？",["CreateWorkOrder","ReceivePlan","TrackIn/TrackOut","CompleteLot"],2,"执行阶段对应TrackIn/TrackOut操作。")),
+_c("pw-4","STB流程",
+_q("STB（Start To Build）流程的正确步骤是？",["CreateLot→CreateWorkOrder→StartLot","StartLot→CreateLot→CreateWorkOrder","CreateWorkOrder→CreateLot→StartLot","CreateWorkOrder→StartLot→CreateLot"],2,"STB流程：CreateWorkOrder→CreateLot→StartLot。"),
+_q("关于STB流程，以下哪个说法是正确的？",["STB是可选的高级流程","STB是MES最基础的流程","STB只在特殊情况下使用","STB不需要创建工单"],1,"STB是MES最基础的流程。"))
+],
+"lot-mgmt":[
+_c("lm-1","Lot基本概念",
+_q("Lot（批次）的三大特性是什么？",["唯一标识、同质性、可追溯性","多重标识、异质性、不可追溯","临时标识、随机性、部分追溯","共享标识、同质性、选择性追溯"],0,"Lot三大特性：唯一标识、同质性、可追溯性。"),
+_q("Lot在MES中的作用不包括？",["生产跟踪","质量控制","财务结算","合规报告"],2,"Lot的作用包括生产跟踪、质量控制、资源分配和合规报告。")),
+_c("lm-2","Lot生命周期状态",
+_q("Lot的正确状态流转顺序是？",["Started→Created→Run→Wait→Completed","Created→Started→Wait→Run→Completed→Shipped","Created→Run→Wait→Started→Completed","Wait→Run→Created→Started→Shipped"],1,"Lot状态流转：Created→Started→Wait→Run→Completed→Shipped/Scrapped。"),
+_q("Lot处于Hold状态时，需要执行什么操作才能继续？",["Scrap","Release","TrackIn","Complete"],1,"Hold状态需要Release操作后才能继续流转。")),
+_c("lm-3","核心流转操作",
+_q("TrackIn操作会使Lot的状态发生什么变化？",["Run→Wait","Wait→Run","Created→Started","Completed→Shipped"],1,"TrackIn将Lot送入设备加工，状态从Wait变为Run。"),
+_q("以下哪个操作用于将Lot从设备上移出？",["TrackIn","TrackOut","Hold","Release"],1,"TrackOut用于完成加工后将Lot从设备移出。")),
+_c("lm-4","批次操作(Split/Merge)",
+_q("将一个大Lot拆分为多个小Lot的操作叫什么？",["Merge","Branch","Split","Rework"],2,"Split将Lot拆分为多个小Lot，Merge将多个小Lot合并。"),
+_q("以下哪个操作用于合并多个小Lot？",["Split","Merge","Branch","Scrap"],1,"Merge用于将多个小Lot合并为一个大Lot。")),
+_c("lm-5","高级操作(Rework)",
+_q("当产品质量不达标时，需要退回重新加工的操作是？",["Branch","FutureAction","Rework","Sampling"],2,"Rework用于将质量不达标的产品退回重新加工。"),
+_q("Branch操作的用途是什么？",["退回重新加工","从主流程到分支进行特殊处理","预设未来操作","抽样检查"],1,"Branch用于从主流程到分支进行特殊处理。"))
+],
+"equipment":[
+_c("eq-1","Factory建模层次",
+_q("MES工厂建模的六层结构正确顺序是？",["Factory→Machine→Area→Port→SubArea→MachineSpec","Factory→Area→SubArea→MachineSpec→Machine→Port","Area→Factory→SubArea→Machine→MachineSpec→Port","Factory→SubArea→Area→Machine→Port→MachineSpec"],1,"六层结构：Factory→Area→SubArea→MachineSpec→Machine→Port。"),
+_q("在工厂建模中，'光刻区'属于哪个层级？",["Factory","Area","SubArea","Machine"],1,"光刻区属于Area（生产区域）层级。")),
+_c("eq-2","设备类型与状态",
+_q("以下哪种设备类型用于物料搬运？",["ProductionMachine","StorageMachine","TransportMachine","InspectionMachine"],2,"TransportMachine用于物料搬运（如AGV/OHT）。"),
+_q("设备状态'Down'表示什么？",["空闲","加工中","故障","维护"],2,"Down表示故障。状态包括Idle、Run、Down、PM、Standby。")),
+_c("eq-3","Batch管理",
+_q("Batch管理中，将Batch投入加工的操作是？",["CreateBatch","BatchTrackIn","BatchTrackOut","CancelBatch"],1,"BatchTrackIn用于将Batch投入加工。"),
+_q("MachineCapability的作用是什么？",["定义设备物理尺寸","定义设备加工能力，实现智能派工","定义设备价格","定义设备颜色"],1,"MachineCapability定义设备加工能力，实现智能派工。")),
+_c("eq-4","PMS预防性维护",
+_q("PMS（预防性维护系统）的主要目的是？",["提高产品质量","确保设备长期稳定运行","管理人员排班","处理客户投诉"],1,"PMS确保设备长期稳定运行。"),
+_q("PMS不包含以下哪项功能？",["PM日历","PM列表","PM规范","PM销售"],3,"PMS包含PM日历、PM列表、PM规范和PM管理。"))
+],
+"quality":[
+_c("qa-1","DataCollection建模",
+_q("数据收集建模的四个步骤正确顺序是？",["DataCollectZone→Item→Spec→View","DataCollectItem→Zone→Spec→View","DataCollectSpec→Item→Zone→View","DataCollectView→Spec→Zone→Item"],1,"四步骤：Item→Zone→Spec→View。"),
+_q("DataCollectSpec的作用是什么？",["定义采集数据项","定义采集区域","定义采集规格，设置上下限","定义数据展示视图"],2,"DataCollectSpec用于定义采集规格，设置上下限。")),
+_c("qa-2","Spec状态管理",
+_q("Spec状态流转的正确顺序是？",["Frozen→UnFrozen→Active→Archive","UnFrozen→Frozen→Active/NotActive→Archive","Active→Frozen→UnFrozen→Archive","Archive→Active→Frozen→UnFrozen"],1,"Spec状态：UnFrozen→Frozen→Active/NotActive→Archive。"),
+_q("Spec处于'UnFrozen'状态时意味着什么？",["已冻结，不可修改","未冻结，可编辑修改","已激活，正在使用","已归档，历史版本"],1,"UnFrozen表示未冻结，可编辑修改。")),
+_c("qa-3","抽检Sampling",
+_q("哪种抽检类型是系统自动按规则抽取样本检测的？",["ForceSampling","AutoSampling","ReserveSampling","ManualSampling"],1,"AutoSampling是系统自动按规则抽取样本检测。"),
+_q("抽检流程的正确顺序是？",["执行检测→定义规则→触发→记录","定义规则→触发→执行检测→记录→判定→处理","触发→定义规则→判定→执行","记录→执行→触发→定义规则"],1,"抽检流程：定义规则→触发→执行→记录→判定→处理。")),
+_c("qa-4","Alarm报警系统",
+_q("报警建模的正确顺序是？",["AlarmNotify→Def→TaskDef→Generator","AlarmDef→TaskDef→Notify→Generator","AlarmGenerator→Def→Notify→TaskDef","AlarmTaskDef→Generator→Def→Notify"],1,"报警建模：Def→TaskDef→Notify→Generator。"),
+_q("AlarmGenerator的作用是什么？",["定义报警类型","定义处理任务","定义通知方式","监控数据并触发报警"],3,"AlarmGenerator负责监控数据并触发报警。")),
+_c("qa-5","OCAP与Request审批",
+_q("OCAP的全称是什么？",["Out-of-Control Action Plan","Online Control Action Process","Operation Control And Planning","Output Check Action Protocol"],0,"OCAP全称Out-of-Control Action Plan（失控行动计划）。"),
+_q("Request审批流程的正确顺序是？",["Approval→Confirm→RequestCard","RequestCard→Confirm→Approval","Confirm→RequestCard→Approval","RequestCard→Approval→Confirm"],1,"审批流程：RequestCard→Confirm→Approval。"))
+],
+"logistics":[
+_c("lg-1","Bank概念与操作",
+_q("Bank在MES中指的是什么？",["银行账户","工厂内存储和管理生产材料的位置","数据库备份","人员管理区域"],1,"Bank是工厂内存储和管理生产材料的物理或逻辑位置。"),
+_q("将材料放入Bank的操作叫什么？",["BankOut","BankIn","MoveBank","CreateBank"],1,"BankIn将材料放入Bank并更新库存。")),
+_c("lg-2","Carrier载具管理",
+_q("以下哪个操作用于新增载具？",["ChangeCarrier","CleanCarrier","CreateCarrier","AssignCarrier"],2,"CreateCarrier用于新增载具。"),
+_q("AssignCarrier操作的作用是？",["创建新载具","清洁载具","分配载具给任务或批次","报废载具"],2,"AssignCarrier用于分配载具给任务或批次。")),
+_c("lg-3","Material物料管理",
+_q("物料管理中，接收入库物料的操作是？",["CreateMaterial","ReceiveMaterial","ReturnMaterial","DeleteMaterial"],1,"ReceiveMaterial用于接收入库物料。"),
+_q("消耗品管理不包括以下哪项操作？",["创建","上下料","冷冻/解冻","销售"],3,"消耗品管理包括创建、检查、上下料、Hold、报废、冷冻/解冻。")),
+_c("lg-4","搬送与库存",
+_q("搬送（Transport）的三大特点是什么？",["手动、延迟、随机","自动化、实时监控、精确调度","半自动、定期检查、人工调度","全手动、离线监控、批量调度"],1,"搬送三大特点：自动化、实时监控、精确调度。"),
+_q("Stocker在MES中的作用是？",["加工产品","管理存储器中的库存状态","搬运物料","检测质量"],1,"Stocker用于管理存储器中的库存状态。"))
+],
+"advanced":[
+_c("ad-1","Reticle光罩管理",
+_q("Reticle（光罩）的层次结构正确顺序是？",["Reticle→ReticleSpec→ReticleGroup","ReticleGroup→ReticleSpec→Reticle","ReticleSpec→ReticleGroup→Reticle","ReticleGroup→Reticle→ReticleSpec"],1,"Reticle层次：ReticleGroup→ReticleSpec→Reticle。"),
+_q("Reticle在半导体制造中的作用是？",["存储数据","在光刻步骤中起模板作用","搬运物料","检测质量"],1,"Reticle在半导体光刻步骤中起模板作用。")),
+_c("ad-2","Recipe管理",
+_q("Recipe建模结构的正确顺序是？",["Recipe→RecipeSpace→RecipeParameter","RecipeParameter→Recipe→RecipeSpace","RecipeSpace→Recipe→RecipeParameter","RecipeSpace→RecipeParameter→Recipe"],2,"Recipe建模：RecipeSpace→Recipe→RecipeParameter。"),
+_q("AbstractRecipe和MachineRecipe的区别是？",["没有区别","AbstractRecipe定义工艺逻辑，MachineRecipe是具体设备参数","AbstractRecipe用于测试，MachineRecipe用于生产","AbstractRecipe更简单"],1,"AbstractRecipe定义工艺逻辑，MachineRecipe包含具体设备参数。")),
+_c("ad-3","ProcessFlow设计",
+_q("ProcessFlow建模的正确顺序是？",["FlowDesign→FlowSpec→OperationSpec","OperationSpec→FlowSpec→FlowDesign","FlowSpec→OperationSpec→FlowDesign","OperationSpec→FlowDesign→FlowSpec"],1,"ProcessFlow建模：OperationSpec→FlowSpec→FlowDesign。"),
+_q("ProcessFlow中Gateway分支的作用是？",["终止流程","实现条件路由，选择不同加工路径","合并多个流程","删除工序"],1,"Gateway实现条件路由，根据属性或检测结果选择不同路径。")),
+_c("ad-4","FoD建模与参数覆盖",
+_q("FoD建模流程的正确顺序是？",["FodModeler→ModelDef→ValueModeler→Frozen","FodModelDef→Modeler→ValueModeler→Frozen","Frozen→ModelDef→Modeler→ValueModeler","ValueModeler→Modeler→ModelDef→Frozen"],1,"FoD建模：ModelDef→Modeler→ValueModeler→Frozen。"),
+_q("ParameterOverride的作用是什么？",["删除整个模型","Frozen后动态调整特定参数","创建新模型","解冻模型"],1,"ParameterOverride可在Frozen后动态调整特定参数，无需解冻整个模型。")),
+_c("ad-5","NPW/Pilot/Season/RunCard",
+_q("NPW（非生产晶圆）的用途是什么？",["正式生产产品","用于测试、调试和工艺验证","存储数据","搬运物料"],1,"NPW用于测试、调试和工艺验证的非生产用晶圆。"),
+_q("Season（暖机）的目的是什么？",["关闭设备","设备正式生产前的预热预处理","清洁设备","报废设备"],1,"Season是设备正式生产前的预热预处理过程。"))
+]
+};
