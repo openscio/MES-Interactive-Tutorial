@@ -18,28 +18,29 @@ var quizState = {
 };
 
 // ============================================
-// Module title map (from KNOWLEDGE_DATA)
+// Module lookup cache (built on first use)
 // ============================================
-function getModuleTitle(moduleId) {
+var _knowledgeMap = null;
+
+function getKnowledgeMap() {
+  if (_knowledgeMap) return _knowledgeMap;
   if (typeof KNOWLEDGE_DATA !== 'undefined') {
+    _knowledgeMap = {};
     for (var i = 0; i < KNOWLEDGE_DATA.length; i++) {
-      if (KNOWLEDGE_DATA[i].id === moduleId) {
-        return KNOWLEDGE_DATA[i].icon + ' ' + KNOWLEDGE_DATA[i].title;
-      }
+      _knowledgeMap[KNOWLEDGE_DATA[i].id] = KNOWLEDGE_DATA[i];
     }
   }
-  return moduleId;
+  return _knowledgeMap || {};
+}
+
+function getModuleTitle(moduleId) {
+  var mod = getKnowledgeMap()[moduleId];
+  return mod ? mod.icon + ' ' + mod.title : moduleId;
 }
 
 function getModuleIcon(moduleId) {
-  if (typeof KNOWLEDGE_DATA !== 'undefined') {
-    for (var i = 0; i < KNOWLEDGE_DATA.length; i++) {
-      if (KNOWLEDGE_DATA[i].id === moduleId) {
-        return KNOWLEDGE_DATA[i].icon;
-      }
-    }
-  }
-  return '📝';
+  var mod = getKnowledgeMap()[moduleId];
+  return mod ? mod.icon : '📝';
 }
 
 // ============================================
@@ -216,12 +217,16 @@ function renderCurrentQuestion() {
   html += '<div class="quiz-feedback" id="quizFeedback"></div>';
 
   // Next button (hidden initially)
-  html += '<button class="quiz-next-btn" id="quizNextBtn" style="display:none;" onclick="handleNextQuestion()">下一题 →</button>';
+  html += '<button class="quiz-next-btn" id="quizNextBtn" style="display:none;">下一题 →</button>';
 
   html += '</div>'; // .quiz-card
   html += '</div>'; // .quiz-container
 
   container.innerHTML = html;
+
+  // Bind next button
+  var nextBtnEl = container.querySelector('#quizNextBtn');
+  if (nextBtnEl) nextBtnEl.addEventListener('click', handleNextQuestion);
 
   // Bind option click events
   var options = container.querySelectorAll('.quiz-option');
@@ -472,12 +477,19 @@ function renderQuizResults() {
 
   // Action buttons
   html += '<div style="display: flex; gap: 12px; justify-content: center; margin-top: 24px; flex-wrap: wrap;">';
-  html += '<button class="btn btn-primary" onclick="startQuiz(\'' + quizState.moduleId + '\')">🔄 重新测验</button>';
-  html += '<button class="btn btn-outline" onclick="navigateTo(\'knowledge\')">📚 返回知识学习</button>';
+  html += '<button class="btn btn-primary" id="quizRetryBtn">🔄 重新测验</button>';
+  html += '<button class="btn btn-outline" id="quizBackBtn">📚 返回知识学习</button>';
   html += '</div>';
 
   html += '</div>'; // .quiz-card
   html += '</div>'; // .quiz-container
 
   container.innerHTML = html;
+
+  // Bind result action buttons after HTML is set
+  var savedModuleId = quizState.moduleId;
+  var retryBtn = container.querySelector('#quizRetryBtn');
+  var backBtn = container.querySelector('#quizBackBtn');
+  if (retryBtn) retryBtn.addEventListener('click', function() { startQuiz(savedModuleId); });
+  if (backBtn) backBtn.addEventListener('click', function() { navigateTo('knowledge'); });
 }

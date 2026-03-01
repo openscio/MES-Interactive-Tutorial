@@ -185,8 +185,11 @@ function renderPlaceholder(containerId, title, icon, message) {
       <div style="font-size: 4rem; margin-bottom: 20px;">' + icon + '</div>\
       <h3 style="color: var(--primary); margin-bottom: 12px; border: none; padding: 0;">' + title + '</h3>\
       <p style="color: var(--text-light); font-size: 1rem; max-width: 400px; margin: 0 auto 24px;">' + message + '</p>\
-      <button class="btn btn-outline" onclick="navigateTo(\'home\')">← 返回首页</button>\
+      <button class="btn btn-outline" id="placeholderHomeBtn">← 返回首页</button>\
     </div>';
+
+  var homeBtn = container.querySelector('#placeholderHomeBtn');
+  if (homeBtn) homeBtn.addEventListener('click', function() { navigateTo('home'); });
 
   container.dataset.initialized = 'placeholder';
 }

@@ -106,13 +106,30 @@ function renderSimulatorLayout(container) {
 
   // Reset button
   html += '<div style="text-align:center;margin-top:16px;">';
-  html += '<button class="btn btn-outline" onclick="resetSimulator()">🔄 重置模拟</button>';
+  html += '<button class="btn btn-outline" id="simResetBtn">🔄 重置模拟</button>';
   html += '</div>';
 
   html += '</div>'; // .simulator-layout
 
   container.innerHTML = html;
   container.dataset.initialized = 'true';
+
+  // Bind reset button after HTML is set
+  var resetBtn = container.querySelector('#simResetBtn');
+  if (resetBtn) resetBtn.addEventListener('click', resetSimulator);
+
+  // Bind action button clicks via event delegation (once per layout render).
+  // renderActionButtons() only rebuilds innerHTML inside this container,
+  // so this listener persists through all subsequent updateSimulatorUI() calls.
+  var actionBtnsContainer = container.querySelector('#actionButtonsContainer');
+  if (actionBtnsContainer) {
+    actionBtnsContainer.addEventListener('click', function(e) {
+      var btn = e.target.closest('[data-action-id]');
+      if (btn && !btn.disabled) {
+        executeAction(btn.getAttribute('data-action-id'));
+      }
+    });
+  }
 }
 
 // ============================================
@@ -422,7 +439,7 @@ function renderActionButtons() {
       var btnCls = 'action-btn';
       if (act.btnClass) btnCls += ' ' + act.btnClass;
 
-      html += '<button class="' + btnCls + '"' + (disabled ? ' disabled' : '') + ' onclick="executeAction(\'' + act.id + '\')" title="' + escapeHtml(act.desc) + '">';
+      html += '<button class="' + btnCls + '"' + (disabled ? ' disabled' : '') + ' data-action-id="' + escapeHtml(act.id) + '" title="' + escapeHtml(act.desc) + '">';
       html += escapeHtml(act.name);
       html += '</button>';
     }
@@ -432,6 +449,8 @@ function renderActionButtons() {
   }
 
   container.innerHTML = html;
+  // Event delegation is bound in renderSimulatorLayout, not here,
+  // to avoid rebinding on every updateSimulatorUI() call.
 }
 
 // ============================================
