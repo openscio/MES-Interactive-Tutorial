@@ -58,8 +58,9 @@
         </a>
       </nav>
 
-      <div style="padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; opacity: 0.5; text-align: center;">
-        MES Interactive Tutorial v1.0
+      <div style="padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeToggleBtn">🌙 深色模式</button>
+        <div style="font-size: 0.75rem; opacity: 0.5; margin-top: 8px;">MES Interactive Tutorial v1.1</div>
       </div>
     </aside>
 
@@ -110,7 +111,7 @@
               <div class="card-badge">互动模拟</div>
               <div class="card-icon">🔄</div>
               <h3>批次模拟器</h3>
-              <p>通过可视化状态机图，模拟 Lot（批次）从创建到出货的完整生命周期。支持 TrackIn/TrackOut、Hold/Release、Split/Merge 等 22 种操作，覆盖完整生产场景。</p>
+              <p>通过可视化状态机图，模拟 Lot（批次）从创建到出货的完整生命周期。支持 22 种操作和 20 个引导式特殊场景案例，涵盖 Hold、报废、返工、优先级变更等真实生产场景。</p>
               <div class="card-stats">
                 <div class="stat">
                   <strong>8</strong>
@@ -121,8 +122,8 @@
                   操作类型
                 </div>
                 <div class="stat">
-                  <strong>SVG</strong>
-                  状态图
+                  <strong>20</strong>
+                  场景案例
                 </div>
               </div>
             </div>
@@ -170,6 +171,7 @@
   <script src="data/knowledge-data.js"></script>
   <script src="data/quiz-data.js"></script>
   <script src="data/lot-states.js"></script>
+  <script src="data/scenario-data.js"></script>
   <script src="data/feature-tree.js"></script>
   <script src="js/app.js"></script>
   <script src="js/knowledge.js"></script>

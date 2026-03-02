@@ -334,6 +334,38 @@ function escapeHtml(str) {
 }
 
 // ============================================
+// Dark Mode
+// ============================================
+
+function toggleTheme() {
+  var html = document.documentElement;
+  var isDark = html.getAttribute('data-theme') === 'dark';
+  if (isDark) {
+    html.removeAttribute('data-theme');
+    saveToStorage('theme', 'light');
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    saveToStorage('theme', 'dark');
+  }
+  updateThemeButton();
+}
+
+function updateThemeButton() {
+  var btn = getEl('themeToggleBtn');
+  if (!btn) return;
+  var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  btn.textContent = isDark ? '\u2600\uFE0F \u6D45\u8272\u6A21\u5F0F' : '\uD83C\uDF19 \u6DF1\u8272\u6A21\u5F0F';
+}
+
+function initTheme() {
+  var theme = loadFromStorage('theme', 'light');
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+  updateThemeButton();
+}
+
+// ============================================
 // Event Binding
 // ============================================
 
@@ -397,6 +429,9 @@ function initApp() {
   if (AppState.initialized) return;
 
   console.log('[MES Tutorial] Initializing application...');
+
+  // Initialize theme
+  initTheme();
 
   // Bind events
   bindEvents();
